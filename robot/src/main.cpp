@@ -17,7 +17,6 @@ void printMac() {
     char buff[20];
     sprintf(buff, "suuiii");
 
-    
     oled.setTextSize(1);
     oled.setCursor(0,12);
     oled.print(WiFi.macAddress());
@@ -30,7 +29,6 @@ void setup(){
     Serial.println("\nOLED Test"); 
     if (!oled.begin(SSD1306_SWITCHCAPVCC, D_ADDR)) {
         Serial.println("OLED allocation failed");
-        for (;;); // Don't proceed, loop forever
     }
     WiFi.mode(WIFI_MODE_STA);
     oled.setFont();
