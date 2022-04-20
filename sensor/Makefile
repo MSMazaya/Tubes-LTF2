@@ -13,6 +13,3 @@ program:
 
 uploadfs:
 	platformio -f -c vim run --target uploadfs
-
-serial:
-	platformio -f -c vim device monitor
