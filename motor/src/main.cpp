@@ -1,9 +1,11 @@
 #include <Arduino.h>
 #include <Motor.hpp>
 #include <Control.hpp>
+#include <WiFi.h>
+#include <esp_now.h>
 
-#define MA_EN1 33
 #define MA_EN2 13
+#define MA_EN1 33 
 
 #define MA_IN1 25
 #define MA_IN2 26
@@ -24,28 +26,54 @@ Motor frontRight;
 Motor backLeft;
 Motor backRight;
 
+struct Data {
+    public:
+        char a[32];
+        void printA() {
+            Serial.println(a);
+        }
+};
+ 
+Data data;
+ 
+// callback function that will be executed when data is received
+void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
+  memcpy(&data, incomingData, sizeof(data));
+  Serial.print("Bytes received: ");
+  Serial.println(len);
+  Serial.print("Char: ");
+  data.printA();
+  Serial.println();
+  control.stop();
+}
+ 
+
 void setup() {
   Serial.begin(9600);
 
-  frontLeft.init(
+  // MA_EN1
+  backRight.init(
     MA_EN1,
     MA_IN1,
     MA_IN2 
   );
 
+  // MA_EN2
   frontRight.init(
     MA_EN2,
     MA_IN3,
     MA_IN4
   );
 
-  backLeft.init(
-    MB_EN1,
+  // MB_EN1
+  frontLeft.init( 
+    MB_EN1, 
     MB_IN1,
     MB_IN2
   );
 
-  backRight.init(
+  // MB_EN2
+  backLeft.init(
     MB_EN2,
     MB_IN3,
     MB_IN4
@@ -58,11 +86,33 @@ void setup() {
     backLeft
   );
 
-  Serial.println("Setup End");
+  WiFi.mode(WIFI_AP_STA);
+
+  // Init ESP-NOW
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("Error initializing ESP-NOW");
+    return;
+  }
+  
+  // Once ESPNow is successfully Init, we will register for recv CB to
+  // get recv packer info
+  esp_now_register_recv_cb(OnDataRecv);
+
+  /* WiFi.begin("BAMBANG57", "bambang57"); */
+  /* Serial.print("Connecting to WiFi .."); */
+  /* while (WiFi.status() != WL_CONNECTED) { */
+  /*   Serial.print('.'); */
+  /*   delay(1000); */
+  /* } */
+  /* Serial.println(WiFi.localIP()); */
+
+  /* control.rotateCW(2); */
+  /* frontLeft.runForward(); */
+  /* frontRight.runForward(); */
+  control.moveForward();
+  Serial.println("DONE");
 }
 
 void loop()   
 {    
-    control.rotateCW(2);
-    delay(2000);
 } 

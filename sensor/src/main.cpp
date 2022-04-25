@@ -1,61 +1,62 @@
-#include<Arduino.h>
-#include<esp_now.h>
+#include <Arduino.h>
+#include <WiFi.h>
+#include <esp_now.h>
 
-#define DI0 32
-#define DI1 35
-#define DI2 34
-#define DI3 39
-#define window 500
+/* 9C:9C:1F:EA:41:4C */
+uint8_t broadcastAddress[] = {0x9C, 0x9C, 0x1F, 0xEA, 0x41, 0x4C};
 
-int values0[window+1];
-int values1[window+1];
-int values2[window+1];
-int values3[window+1];
+struct Data {
+    public:
+        char a[32];
+        void printA() {
+            Serial.println(a);
+        }
+};
+ 
+Data data;
+
+esp_now_peer_info_t peerInfo;
+
+// callback when data is sent
+void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+  Serial.print("\r\nLast Packet Send Status:\t");
+  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+}
 
 void setup() {
-  // put your setup code here, to run once:
-//  pinMode(audio, INPUT_PULLUP);
   Serial.begin(9600);
-  for(int i =0;i<window;i++){
-    values0[i]=0;
-    values1[i]=0;
-    values2[i]=0;
-    values3[i]=0;
+ 
+  // Set device as a Wi-Fi Station
+  WiFi.mode(WIFI_STA);
+
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("Error initializing ESP-NOW"); return;
+  }
+  esp_now_register_send_cb(OnDataSent);
+  
+  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+  peerInfo.channel = 0;  
+  peerInfo.encrypt = false;
+
+  int test = esp_now_add_peer(&peerInfo);  
+  if (test != ESP_OK){
+    Serial.println("Failed to add peer");
+    return;
   }
 }
 
-int counter = 0;
 void loop() {
-  if(counter > 50) {
-    counter = 0;
-  }
-  // put your main code here, to run repeatedly:
-  int di0 = analogRead(DI0);
-  int di1 = analogRead(DI1);
-  int di2 = analogRead(DI2);
-  int di3 = analogRead(DI3);
+  // Set values to send
+  strcpy(data.a, "aaa");
   
-  values0[counter]=di0;
-  values1[counter]=di1;
-  values2[counter]=di2;
-  values3[counter]=di3;
-
-  float average0 = 0;
-  float average1 = 0;
-  float average2 = 0;
-  float average3 = 0;
-  for(int i = 0; i<window; i++){
-    average0+=values0[i];
-    average1+=values1[i];
-    average2+=values2[i];
-    average3+=values3[i];
+  // Send message via ESP-NOW
+  esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &data, sizeof(data));
+   
+  if (result == ESP_OK) {
+    Serial.println("Sent with success");
   }
-  average0=average0/window;
-  average1=average1/window;
-  average2=average2/window;
-  average3=average3/window;
-
-
-
-  counter++;
+  else {
+    Serial.println("Error sending the data");
+  }
+  delay(2000);
 }

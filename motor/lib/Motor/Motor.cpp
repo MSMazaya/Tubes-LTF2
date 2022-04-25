@@ -23,4 +23,6 @@ void Motor::runBackward() {
 
 void Motor::stop() {
     digitalWrite(pinEnable, LOW);
+    digitalWrite(pinInput1, LOW);
+    digitalWrite(pinInput2, LOW);
 }
