@@ -13,3 +13,6 @@ program:
 
 uploadfs:
 	platformio -f -c vim run --target uploadfs
+
+monitor:
+	platformio device monitor --baud 9600
