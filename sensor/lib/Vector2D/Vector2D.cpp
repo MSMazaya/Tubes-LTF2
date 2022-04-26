@@ -1,19 +1,23 @@
 #include "Vector2D.hpp"
 
-Vector2D::Vector2D(float x, float y) {
-    x = x;
-    y = y;
+Vector2D::Vector2D(float x_, float y_) {
+    x = x_;
+    y = y_;
 }
 
-Vector2D inline Vector2D::operator+ (const Vector2D& w) {
+Vector2D Vector2D::operator+ (const Vector2D& w) {
     return Vector2D(x + w.x, y + w.y);
 }
 
-Vector2D inline Vector2D::operator-(const Vector2D& w) {
+Vector2D Vector2D::operator+=(const Vector2D& w) {
+    return Vector2D(x + w.x, y + w.y);
+}
+
+Vector2D Vector2D::operator-(const Vector2D& w) {
     return Vector2D(x - w.x, y - w.y);
 }
 
-Vector2D inline Vector2D::operator-() {
+Vector2D Vector2D::operator-() {
     return Vector2D(- x, - y);
 }
 

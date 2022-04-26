@@ -8,11 +8,13 @@ class Vector2D {
     public:
         Vector2D(float x = 0., float y = 0.);
 
-        inline Vector2D operator+(const Vector2D& w);
+        Vector2D operator+(const Vector2D& w);
 
-        inline Vector2D operator-(const Vector2D& w);
+        Vector2D operator+=(const Vector2D& w);
 
-        inline Vector2D operator-() ;
+        Vector2D operator-(const Vector2D& w);
+
+        Vector2D operator-() ;
 
         float magnitude();
 };
