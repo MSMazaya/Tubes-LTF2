@@ -2,13 +2,22 @@
 #include "Filter.hpp"
 
 template <typename T>
-class MovingAverage : Filter<T> {
+class MovingAverage : public Filter<T> {
     private:
         int window;
 
     public:
-        float getFiltered(T data[]);
-        int getWindow();
-        MovingAverage(int window);
-        MovingAverage operator()(int window);
+        virtual float getFiltered(T data[]) override {
+            float average = 0;
+            for(int i=0;i<window;i++) {
+                average+=data[i];
+            }
+            return average/window;
+        };
+        virtual int getWindow() override {
+            return window;
+        };
+        MovingAverage(int window_input){
+            window = window_input;
+        }
 };

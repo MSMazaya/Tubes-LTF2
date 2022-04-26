@@ -4,7 +4,7 @@
 
 class SensorUltrasonic {
     private:
-        Filter<int>& filter;        
+        Filter<int>* filter;        
         int pinTrig;
         int pinEcho;
         int data_index=0;
@@ -13,5 +13,5 @@ class SensorUltrasonic {
     public:
         void read();
         float getData();
-        SensorUltrasonic(Filter<int>& filter_input, int pinTrig, int pinEcho);
+        SensorUltrasonic(Filter<int> filter_input, int pinTrig, int pinEcho);
 };

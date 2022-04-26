@@ -1,13 +1,13 @@
 #include "SensorUltrasonic.hpp"
 #include <Arduino.h>
 
-SensorUltrasonic::SensorUltrasonic(Filter<int>& filter_input, int pinTrig, int pinEcho) : filter(filter_input) {
+SensorUltrasonic::SensorUltrasonic(Filter<int> filter_input, int pinTrig, int pinEcho) : filter(&filter_input) {
     pinMode(pinTrig, OUTPUT);
     pinMode(pinEcho, INPUT);
 }
 
 void SensorUltrasonic::read() {
-    if(data_index > filter.getWindow()) {
+    if(data_index > filter->getWindow()) {
         data_index = 0; 
     }
 
@@ -26,5 +26,5 @@ void SensorUltrasonic::read() {
 }
 
 float SensorUltrasonic::getData() {
-    return filter.getFiltered(data);
+    return filter->getFiltered(data);
 }

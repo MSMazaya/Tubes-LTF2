@@ -19,6 +19,12 @@ Vector2D Vector2D::operator-(const Vector2D& w) {
     return Vector2D(x - w.x, y - w.y);
 }
 
+Vector2D& Vector2D::operator-=(const Vector2D& w) {
+    this->x -= w.x;
+    this->y -= w.y;
+    return *this;
+}
+
 Vector2D Vector2D::operator-() {
     return Vector2D(- x, - y);
 }

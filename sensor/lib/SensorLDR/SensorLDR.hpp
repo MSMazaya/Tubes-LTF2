@@ -4,13 +4,13 @@
 
 class SensorLDR {
     private:
-        Filter<int>& filter;        
+        Filter<int> *filter;        
         int pin;
         int data_index=0;
-        int data[];
+        int* data;
 
     public:
         void read();
         float getData();
-        SensorLDR(Filter<int>& filter_input, int pin);
+        SensorLDR(Filter<int> *filter_input, int pin);
 };

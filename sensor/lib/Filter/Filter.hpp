@@ -6,8 +6,6 @@ class Filter {
         int window;
 
     public:
-        virtual float getFiltered(T data[]);
-        int getWindow();
-        Filter(int window);
-        Filter operator()(int window);
+        virtual float getFiltered(T data[]) = 0;
+        virtual int getWindow() = 0;
 };
