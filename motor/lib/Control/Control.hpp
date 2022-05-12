@@ -11,5 +11,6 @@ class Control {
         void init(Motor frontRight, Motor frontLeft, Motor backRight, Motor backLeft);
         void rotateCW(float degree);
         void moveForward();
+        void moveForwardWithSpeedScale(int scale);
         void stop();
 };

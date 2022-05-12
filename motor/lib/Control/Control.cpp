@@ -21,6 +21,14 @@ void Control::moveForward() {
     frontRightMotor.runForward();
 }
 
+void Control::moveForwardWithSpeedScale(int scale) {
+    int pwm = scale*255;
+    backLeftMotor.runWithPWM(pwm);
+    backRightMotor.runWithPWM(pwm);
+    frontLeftMotor.runWithPWM(pwm);
+    frontRightMotor.runWithPWM(pwm);
+}
+
 void Control::stop() {
     backLeftMotor.stop();
     backRightMotor.stop();

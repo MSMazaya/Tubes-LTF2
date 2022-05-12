@@ -3,6 +3,7 @@
 #include <Control.hpp>
 #include <WiFi.h>
 #include <esp_now.h>
+#include "test.hpp"
 
 #define MA_EN2 13
 #define MA_EN1 33 
@@ -55,28 +56,32 @@ void setup() {
   backRight.init(
     MA_EN1,
     MA_IN1,
-    MA_IN2 
+    MA_IN2,
+    0
   );
 
   // MA_EN2
   frontRight.init(
     MA_EN2,
     MA_IN3,
-    MA_IN4
+    MA_IN4,
+    1
   );
 
   // MB_EN1
   frontLeft.init( 
     MB_EN1, 
     MB_IN1,
-    MB_IN2
+    MB_IN2,
+    2
   );
 
   // MB_EN2
   backLeft.init(
     MB_EN2,
     MB_IN3,
-    MB_IN4
+    MB_IN4,
+    3
   );
 
   control.init(
@@ -109,8 +114,7 @@ void setup() {
   /* control.rotateCW(2); */
   /* frontLeft.runForward(); */
   /* frontRight.runForward(); */
-  control.moveForward();
-  Serial.println("DONE");
+  test::pwm(frontLeft, backRight);
 }
 
 void loop()   
