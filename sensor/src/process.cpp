@@ -36,7 +36,7 @@ namespace process {
 
         float max_input = 4095;
 
-        // normalized to unit vector
+        // TODO: normalized to unit vector
         float right = ldrRight.getData();
         float left = ldrLeft.getData();
         float front = ldrFront.getData();
