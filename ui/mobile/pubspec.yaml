@@ -32,7 +32,10 @@ dependencies:
   stacked:
   auto_route:
   stacked_services:
+  get_it:
+  injectable:
   stacked_generator:
+  flutter_bluetooth_serial:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

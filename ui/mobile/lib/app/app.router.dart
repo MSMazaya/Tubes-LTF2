@@ -10,12 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../views/bluetooth_config/bluetooth_config_view.dart';
 import '../views/startup/startup_view.dart';
 
 class Routes {
   static const String startupView = '/';
+  static const String bluetoothConfigView = '/bluetooth-config-view';
   static const all = <String>{
     startupView,
+    bluetoothConfigView,
   };
 }
 
@@ -24,6 +27,7 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.startupView, page: StartupView),
+    RouteDef(Routes.bluetoothConfigView, page: BluetoothConfigView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -34,6 +38,15 @@ class StackedRouter extends RouterBase {
       );
       return MaterialPageRoute<dynamic>(
         builder: (context) => StartupView(key: args.key),
+        settings: data,
+      );
+    },
+    BluetoothConfigView: (data) {
+      var args = data.getArgs<BluetoothConfigViewArguments>(
+        orElse: () => BluetoothConfigViewArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => BluetoothConfigView(key: args.key),
         settings: data,
       );
     },
@@ -48,4 +61,10 @@ class StackedRouter extends RouterBase {
 class StartupViewArguments {
   final Key? key;
   StartupViewArguments({this.key});
+}
+
+/// BluetoothConfigView arguments holder class
+class BluetoothConfigViewArguments {
+  final Key? key;
+  BluetoothConfigViewArguments({this.key});
 }
