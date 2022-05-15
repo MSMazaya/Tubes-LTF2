@@ -104,7 +104,9 @@ class WifiConfigView extends StatelessWidget with $WifiConfigView {
           alignment: Alignment(1, 0.85),
           child: FloatingActionButton(
             backgroundColor: Color.fromARGB(255, 90, 54, 198),
-            onPressed: () {},
+            onPressed: () {
+              model.next();
+            },
             child: Text("Next"),
             shape: BeveledRectangleBorder(
               borderRadius: BorderRadius.all(

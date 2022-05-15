@@ -11,6 +11,10 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import '../views/bluetooth_config/bluetooth_config_view.dart';
+import '../views/main/activity/activity_view.dart';
+import '../views/main/control/control_view.dart';
+import '../views/main/main_view.dart';
+import '../views/main/settings/settings_view.dart';
 import '../views/startup/startup_view.dart';
 import '../views/wifi_config/wifi_config_view.dart';
 
@@ -18,10 +22,18 @@ class Routes {
   static const String startupView = '/';
   static const String bluetoothConfigView = '/bluetooth-config-view';
   static const String wifiConfigView = '/wifi-config-view';
+  static const String mainView = '/main-view';
+  static const String controlView = '/control-view';
+  static const String activityView = '/activity-view';
+  static const String settingsView = '/settings-view';
   static const all = <String>{
     startupView,
     bluetoothConfigView,
     wifiConfigView,
+    mainView,
+    controlView,
+    activityView,
+    settingsView,
   };
 }
 
@@ -32,6 +44,10 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.startupView, page: StartupView),
     RouteDef(Routes.bluetoothConfigView, page: BluetoothConfigView),
     RouteDef(Routes.wifiConfigView, page: WifiConfigView),
+    RouteDef(Routes.mainView, page: MainView),
+    RouteDef(Routes.controlView, page: ControlView),
+    RouteDef(Routes.activityView, page: ActivityView),
+    RouteDef(Routes.settingsView, page: SettingsView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -60,6 +76,30 @@ class StackedRouter extends RouterBase {
       );
       return MaterialPageRoute<dynamic>(
         builder: (context) => WifiConfigView(key: args.key),
+        settings: data,
+      );
+    },
+    MainView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const MainView(),
+        settings: data,
+      );
+    },
+    ControlView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const ControlView(),
+        settings: data,
+      );
+    },
+    ActivityView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const ActivityView(),
+        settings: data,
+      );
+    },
+    SettingsView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const SettingsView(),
         settings: data,
       );
     },
