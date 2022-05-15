@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/views/bluetooth_config/bluetooth_config_viewmodel.dart';
+import 'package:mobile/views/wifi_config/wifi_config_viewmodel.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+import 'wifi_config_view.form.dart';
 
-class BluetoothConfigView extends StatelessWidget {
-  BluetoothConfigView({Key? key}) : super(key: key);
+@FormView(fields: [
+  FormTextField(name: 'ssid'),
+  FormTextField(name: 'password', isPassword: true)
+])
+class WifiConfigView extends StatelessWidget with $WifiConfigView {
+  WifiConfigView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<BluetoothConfigViewModel>.reactive(
-      viewModelBuilder: () => BluetoothConfigViewModel(),
+    return ViewModelBuilder<WifiConfigViewModel>.reactive(
+      onModelReady: (model) => listenToFormUpdated(model),
+      onDispose: (_) => disposeForm(),
+      viewModelBuilder: () => WifiConfigViewModel(),
       builder: (context, model, child) => Scaffold(
         body: Container(
           alignment: Alignment.center,
@@ -34,7 +42,7 @@ class BluetoothConfigView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Bluetooth",
+                  "WiFi",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
@@ -53,25 +61,41 @@ class BluetoothConfigView extends StatelessWidget {
                 SizedBox(height: 20),
                 Center(
                   child: const Text(
-                    "Available Devices",
+                    "Enter WiFi Configuration:",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 5,
-                        color: Colors.white,
-                        child: ListTile(title: Text('Bluetooth ${index + 1}')),
-                      );
-                    })
+                SizedBox(height: 10),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "WiFi SSID",
+                    hintStyle: TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  style: const TextStyle(color: Colors.white),
+                  controller: ssidController,
+                  focusNode: ssidFocusNode,
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "Password",
+                    hintStyle: TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  style: const TextStyle(color: Colors.white),
+                  controller: passwordController,
+                  focusNode: passwordFocusNode,
+                ),
               ],
             ),
           ),
@@ -80,9 +104,7 @@ class BluetoothConfigView extends StatelessWidget {
           alignment: Alignment(1, 0.85),
           child: FloatingActionButton(
             backgroundColor: Color.fromARGB(255, 90, 54, 198),
-            onPressed: () {
-              model.next();
-            },
+            onPressed: () {},
             child: Text("Next"),
             shape: BeveledRectangleBorder(
               borderRadius: BorderRadius.all(

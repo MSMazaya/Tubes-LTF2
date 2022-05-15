@@ -12,13 +12,16 @@ import 'package:stacked/stacked_annotations.dart';
 
 import '../views/bluetooth_config/bluetooth_config_view.dart';
 import '../views/startup/startup_view.dart';
+import '../views/wifi_config/wifi_config_view.dart';
 
 class Routes {
   static const String startupView = '/';
   static const String bluetoothConfigView = '/bluetooth-config-view';
+  static const String wifiConfigView = '/wifi-config-view';
   static const all = <String>{
     startupView,
     bluetoothConfigView,
+    wifiConfigView,
   };
 }
 
@@ -28,6 +31,7 @@ class StackedRouter extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.startupView, page: StartupView),
     RouteDef(Routes.bluetoothConfigView, page: BluetoothConfigView),
+    RouteDef(Routes.wifiConfigView, page: WifiConfigView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -50,6 +54,15 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    WifiConfigView: (data) {
+      var args = data.getArgs<WifiConfigViewArguments>(
+        orElse: () => WifiConfigViewArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => WifiConfigView(key: args.key),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -67,4 +80,10 @@ class StartupViewArguments {
 class BluetoothConfigViewArguments {
   final Key? key;
   BluetoothConfigViewArguments({this.key});
+}
+
+/// WifiConfigView arguments holder class
+class WifiConfigViewArguments {
+  final Key? key;
+  WifiConfigViewArguments({this.key});
 }
