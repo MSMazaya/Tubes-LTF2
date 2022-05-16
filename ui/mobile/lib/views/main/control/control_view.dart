@@ -54,58 +54,90 @@ class ControlView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20),
-        const Text(
-          "Light Intesity Sensor",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Row(
-          children: [
-            const Text(
-              "Front Sensor",
-              style: TextStyle(
+        Container(
+            decoration: BoxDecoration(
+              border: Border.all(
                 color: Colors.white,
-                fontSize: 25,
               ),
+              borderRadius: BorderRadius.circular(20),
             ),
-          ],
-        ),
-        Row(
-          children: [
-            const Text(
-              "Front Sensor",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Text(
-              "Front Sensor",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            const Text(
-              "Front Sensor",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-              ),
-            ),
-          ],
-        ),
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Front Sensor",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                      LinearProgressIndicator(
+                        backgroundColor: Colors.white,
+                        value: 0.8,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Front Sensor",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                      LinearProgressIndicator(
+                        backgroundColor: Colors.white,
+                        value: 0.8,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Front Sensor",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                      LinearProgressIndicator(
+                        backgroundColor: Colors.white,
+                        value: 0.8,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Front Sensor",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                      LinearProgressIndicator(
+                        backgroundColor: Colors.white,
+                        value: 0.8,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ))
       ],
     );
   }

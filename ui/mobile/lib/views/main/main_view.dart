@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/views/main/control/control_view.dart';
 import 'package:mobile/views/main/main_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 

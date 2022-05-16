@@ -1,6 +1,5 @@
 import 'package:mobile/services/bluetooth.dart';
 import 'package:mobile/views/bluetooth_config/bluetooth_config_view.dart';
-import 'package:mobile/views/control/main_view.dart';
 import 'package:mobile/views/main/activity/activity_view.dart';
 import 'package:mobile/views/main/control/control_view.dart';
 import 'package:mobile/views/main/main_view.dart';

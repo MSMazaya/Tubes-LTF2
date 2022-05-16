@@ -99,7 +99,7 @@ class StackedRouter extends RouterBase {
     },
     SettingsView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const SettingsView(),
+        builder: (context) => SettingsView(),
         settings: data,
       );
     },
