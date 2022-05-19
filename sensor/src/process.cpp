@@ -3,8 +3,6 @@
 namespace process {
     MovingAverage<int> ldrFilter(10);
 
-    auto now = millis();
-
     SensorLDR ldrRight(
         &ldrFilter,
         32

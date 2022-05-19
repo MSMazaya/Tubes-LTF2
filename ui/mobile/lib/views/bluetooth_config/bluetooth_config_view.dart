@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:mobile/views/bluetooth_config/bluetooth_config_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -8,6 +9,8 @@ class BluetoothConfigView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BluetoothConfigViewModel>.reactive(
+      onModelReady: (model) => {model.restartDiscovery()},
+      onDispose: (model) => {model.disposeBluetoothStream()},
       viewModelBuilder: () => BluetoothConfigViewModel(),
       builder: (context, model, child) => Scaffold(
         body: Container(
@@ -52,25 +55,71 @@ class BluetoothConfigView extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Center(
-                  child: const Text(
-                    "Available Devices",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
+                  child: model.isDiscovering
+                      ? const Text(
+                          "Searching for Devices",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        )
+                      : const Text(
+                          "Available Devices",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
                 ),
-                ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 5,
-                        color: Colors.white,
-                        child: ListTile(title: Text('Bluetooth ${index + 1}')),
-                      );
-                    })
+                model.isDiscovering
+                    ? FittedBox(
+                        child: Container(
+                          margin: new EdgeInsets.all(16.0),
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        ),
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: model.results.length,
+                        itemBuilder: (context, index) {
+                          BluetoothDiscoveryResult result =
+                              model.results[index];
+                          final device = result.device;
+                          final address = device.address;
+
+                          return GestureDetector(
+                            onLongPress: () async {
+                              bool bonded = false;
+                              if (device.isBonded) {
+                                print('Unbonding from ${device.address}...');
+                                await FlutterBluetoothSerial.instance
+                                    .removeDeviceBondWithAddress(address);
+                                print(
+                                    'Unbonding from ${device.address} has succed');
+                              } else {
+                                print('Bonding with ${device.address}...');
+                                bonded = (await FlutterBluetoothSerial.instance
+                                    .bondDeviceAtAddress(address))!;
+                                print(
+                                    'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
+                              }
+                            },
+                            child: Card(
+                              elevation: 5,
+                              color: device.isBonded
+                                  ? Colors.lightBlue
+                                  : Colors.white,
+                              child: ListTile(
+                                title: Text(device.name ?? "No Name Device"),
+                              ),
+                            ),
+                          );
+                        },
+                      )
               ],
             ),
           ),
@@ -80,14 +129,10 @@ class BluetoothConfigView extends StatelessWidget {
           child: FloatingActionButton(
             backgroundColor: Color.fromARGB(255, 90, 54, 198),
             onPressed: () {
-              model.next();
+              model.restartDiscovery();
+              // model.next();
             },
-            child: Text("Next"),
-            shape: BeveledRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(4),
-              ),
-            ),
+            child: const Icon(Icons.restart_alt),
           ),
         ),
       ),
