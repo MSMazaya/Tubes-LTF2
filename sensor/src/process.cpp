@@ -3,24 +3,26 @@
 namespace process {
     MovingAverage<int> ldrFilter(10);
 
+    auto now = millis();
+
+    SensorLDR ldrRight(
+        &ldrFilter,
+        32
+    );
+
     SensorLDR ldrLeft(
         &ldrFilter,
-        27
+        35
     );
 
     SensorLDR ldrFront(
         &ldrFilter,
-        26
-    );
-
-    SensorLDR ldrRight(
-        &ldrFilter,
-        25
+        34
     );
 
     SensorLDR ldrBack(
         &ldrFilter,
-        33
+        39
     );
 
     void ldrReadData() {
@@ -36,7 +38,6 @@ namespace process {
 
         float max_input = 4095;
 
-        // TODO: normalized to unit vector
         float right = ldrRight.getData();
         float left = ldrLeft.getData();
         float front = ldrFront.getData();

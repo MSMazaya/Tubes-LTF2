@@ -6,4 +6,6 @@
 
 namespace main_thread {
     void loop();
+    void setup();
+    void test_move();
 }

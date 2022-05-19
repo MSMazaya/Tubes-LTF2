@@ -47,5 +47,7 @@ namespace main_thread {
             backLeft
         );
     }
-}
 
+    void test_move() {
+    }
+}

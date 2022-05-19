@@ -5,6 +5,11 @@ Vector2D::Vector2D(float x_, float y_) {
     y = y_;
 }
 
+Vector2D::Vector2D(const Vector2D& w) {
+    x = w.y;
+    y = w.y;
+}
+
 Vector2D Vector2D::operator+ (const Vector2D& w) {
     return Vector2D(x + w.x, y + w.y);
 }
@@ -25,16 +30,20 @@ Vector2D& Vector2D::operator-=(const Vector2D& w) {
     return *this;
 }
 
-Vector2D Vector2D::operator-() {
-    return Vector2D(- x, - y);
-}
-
 Vector2D Vector2D::operator*(const Vector2D& w) {
     return Vector2D(x * w.x, y * w.y);
 }
 
+Vector2D Vector2D::operator*(const float& f) {
+    return Vector2D(x * f, y * f);
+}
+
 Vector2D Vector2D::operator/(const Vector2D& w) {
     return Vector2D(x / w.x, y / w.y);
+}
+
+Vector2D Vector2D::operator/(const float& f) {
+    return Vector2D(x / f, y / f);
 }
 
 float Vector2D::magnitude() {

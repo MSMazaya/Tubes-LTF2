@@ -17,6 +17,7 @@ namespace communication {
       if (esp_now_init() != ESP_OK) {
         Serial.println("Error initializing ESP-NOW"); return;
       }
+
       esp_now_register_send_cb(OnDataSent);
       
       memcpy(peerInfo.peer_addr, broadcastAddress, 6);

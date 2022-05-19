@@ -6,6 +6,8 @@ class Vector2D {
         float x, y;
         Vector2D(float x = 0., float y = 0.);
 
+        Vector2D(const Vector2D& w);  
+
         Vector2D operator+(const Vector2D& w);
 
         Vector2D& operator+=(const Vector2D& w);
@@ -14,11 +16,13 @@ class Vector2D {
 
         Vector2D& operator-=(const Vector2D& w);
 
-        Vector2D operator-();
-
         Vector2D operator*(const Vector2D& w);
 
+        Vector2D operator*(const float& f);
+
         Vector2D operator/(const Vector2D& w);
+
+        Vector2D operator/(const float& f);
 
         float magnitude();
 };
