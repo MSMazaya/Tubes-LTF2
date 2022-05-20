@@ -1,4 +1,5 @@
 import 'package:mobile/services/bluetooth.dart';
+import 'package:mobile/services/storage.dart';
 import 'package:mobile/views/bluetooth_config/bluetooth_config_view.dart';
 import 'package:mobile/views/main/activity/activity_view.dart';
 import 'package:mobile/views/main/control/control_view.dart';
@@ -22,6 +23,8 @@ import 'package:stacked_services/stacked_services.dart';
   dependencies: [
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: BluetoothService),
+    LazySingleton(classType: StorageService),
+    LazySingleton(classType: DialogService),
   ],
 )
 class App {}

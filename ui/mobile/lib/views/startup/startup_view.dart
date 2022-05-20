@@ -11,7 +11,13 @@ class StartupView extends StatelessWidget with $StartupView {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartupViewModel>.reactive(
-      onModelReady: (model) => listenToFormUpdated(model),
+      onModelReady: (model) async {
+        bool usernameAvailable = await model.checkUserAvailable();
+        if (usernameAvailable) {
+          model.next();
+        }
+        listenToFormUpdated(model);
+      },
       onDispose: (_) => disposeForm(),
       viewModelBuilder: () => StartupViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -20,7 +26,7 @@ class StartupView extends StatelessWidget with $StartupView {
           child: FloatingActionButton(
             backgroundColor: Color.fromARGB(255, 90, 54, 198),
             onPressed: () {
-              model.next();
+              model.submit();
             },
             child: Text("Next"),
             shape: BeveledRectangleBorder(

@@ -36,6 +36,7 @@ dependencies:
   injectable:
   stacked_generator:
   flutter_bluetooth_serial:
+  flutter_secure_storage:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
