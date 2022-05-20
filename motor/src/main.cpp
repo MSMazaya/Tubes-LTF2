@@ -41,6 +41,6 @@ void setup() {
 void loop()   
 {    
     if(SerialBT.available()) {
-        Serial.write(SerialBT.read());
+        Serial.println(SerialBT.read());
     }
 } 

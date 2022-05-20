@@ -10,6 +10,7 @@ class ControlView extends StatelessWidget {
     return ViewModelBuilder<ControlViewModel>.reactive(
       onModelReady: (model) {
         model.getUsername();
+        model.onMount();
       },
       viewModelBuilder: () => ControlViewModel(),
       builder: (context, model, child) => Column(
