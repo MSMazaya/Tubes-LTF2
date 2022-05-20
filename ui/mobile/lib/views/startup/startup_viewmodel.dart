@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/app/app.router.dart';
 import 'package:mobile/views/startup/startup_view.form.dart';

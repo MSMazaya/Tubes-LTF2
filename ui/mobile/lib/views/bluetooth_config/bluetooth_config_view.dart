@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:mobile/views/bluetooth_config/bluetooth_config_viewmodel.dart';
 import 'package:stacked/stacked.dart';
@@ -93,20 +94,28 @@ class BluetoothConfigView extends StatelessWidget {
 
                           return GestureDetector(
                             onLongPress: () async {
-                              bool bonded = false;
-                              if (device.isBonded) {
-                                print('Unbonding from ${device.address}...');
-                                await FlutterBluetoothSerial.instance
-                                    .removeDeviceBondWithAddress(address);
-                                print(
-                                    'Unbonding from ${device.address} has succed');
-                              } else {
-                                print('Bonding with ${device.address}...');
-                                bonded = (await FlutterBluetoothSerial.instance
-                                    .bondDeviceAtAddress(address))!;
-                                print(
-                                    'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
-                              }
+                              // HapticFeedback.vibrate();
+                              // bool bonded = false;
+                              // if (device.isBonded) {
+                              //   print('Unbonding from ${device.address}...');
+                              //   await FlutterBluetoothSerial.instance
+                              //       .removeDeviceBondWithAddress(address);
+                              //   model.info(
+                              //       'Unbonding from ${device.address} has succeed');
+                              // } else {
+                              //   print('Bonding with ${device.address}...');
+                              //   bonded = (await FlutterBluetoothSerial.instance
+                              //       .bondDeviceAtAddress(address))!;
+                              //   model.info(
+                              //       'Bonding with ${device.address} has ${bonded ? 'succeed' : 'failed'}.');
+                              // }
+                              model.restartDiscovery();
+                            },
+                            onTap: () async {
+                              model.submit(
+                                deviceAddress: device.address,
+                                deviceName: device.name ?? "No Name",
+                              );
                             },
                             child: Card(
                               elevation: 5,
