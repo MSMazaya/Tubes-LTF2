@@ -63,89 +63,95 @@ class ControlView extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                borderRadius: BorderRadius.circular(20),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.white,
               ),
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        const Text(
-                          "Front Sensor",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Front Sensor",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-                        LinearProgressIndicator(
-                          backgroundColor: Colors.white,
-                          value: 0.8,
-                        ),
-                      ],
-                    ),
+                      ),
+                      LinearProgressIndicator(
+                        backgroundColor: Colors.white,
+                        value: 0.8,
+                      ),
+                    ],
                   ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        const Text(
-                          "Front Sensor",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Front Sensor",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-                        LinearProgressIndicator(
-                          backgroundColor: Colors.white,
-                          value: 0.8,
-                        ),
-                      ],
-                    ),
+                      ),
+                      LinearProgressIndicator(
+                        backgroundColor: Colors.white,
+                        value: 0.8,
+                      ),
+                    ],
                   ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        const Text(
-                          "Front Sensor",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Front Sensor",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-                        LinearProgressIndicator(
-                          backgroundColor: Colors.white,
-                          value: 0.8,
-                        ),
-                      ],
-                    ),
+                      ),
+                      LinearProgressIndicator(
+                        backgroundColor: Colors.white,
+                        value: 0.8,
+                      ),
+                    ],
                   ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        const Text(
-                          "Front Sensor",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Front Sensor",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-                        LinearProgressIndicator(
-                          backgroundColor: Colors.white,
-                          value: 0.8,
-                        ),
-                      ],
-                    ),
+                      ),
+                      LinearProgressIndicator(
+                        backgroundColor: Colors.white,
+                        value: 0.8,
+                      ),
+                    ],
                   ),
-                ],
-              ))
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      model.test();
+                    },
+                    child: Text("TEST")),
+              ],
+            ),
+          )
         ],
       ),
     );

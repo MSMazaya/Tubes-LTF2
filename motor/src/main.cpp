@@ -5,11 +5,9 @@
 #include <esp_now.h>
 #include <Vector2D.hpp>
 #include "main_thread.hpp"
-#include "BluetoothSerial.h"
 
 Vector2D data;
 
-BluetoothSerial SerialBT;
  
 // callback function that will be executed when data is received
 void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
@@ -25,7 +23,6 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
 
 void setup() {
   Serial.begin(9600);
-  SerialBT.begin("ESP32");
 
   WiFi.mode(WIFI_AP_STA);
 
@@ -38,9 +35,8 @@ void setup() {
   /* main_thread::setup(); */
 }
 
+
+
 void loop()   
 {    
-    if(SerialBT.available()) {
-        Serial.println(SerialBT.read());
-    }
 } 

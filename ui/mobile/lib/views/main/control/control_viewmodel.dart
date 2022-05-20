@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'dart:convert';
 
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/services/storage.dart';
+import 'package:mobile/types/esp_command/esp_command.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -27,8 +29,12 @@ class ControlViewModel extends BaseViewModel {
     BluetoothConnection.toAddress(address).then((_connection) {
       connection = _connection;
       notifyListeners();
-      _sendMessage("test");
     });
+  }
+
+  void test() {
+    const tes = EspCommand(type: "COMMAND", payload: "MOVERIGHT");
+    _sendMessage(json.encode(tes.toJson()));
   }
 
   void _sendMessage(String text) async {

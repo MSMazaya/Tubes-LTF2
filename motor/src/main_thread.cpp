@@ -1,4 +1,6 @@
 #include "pins.h"
+#include <ArduinoJson.h>
+#include "BluetoothSerial.h"
 #include "main_thread.hpp"
 
 namespace main_thread {
@@ -7,8 +9,12 @@ namespace main_thread {
     Motor frontRight;
     Motor backLeft;
     Motor backRight;
+    BluetoothSerial SerialBT;
+    bool autonomously = true;
 
     void setup() {
+        SerialBT.begin("ESP32");
+
         backRight.init(
             MA_EN1,
             MA_IN1,
@@ -48,6 +54,39 @@ namespace main_thread {
         );
     }
 
-    void test_move() {
+    void loop() {
+        int bytesAvailable = SerialBT.available();
+        if(bytesAvailable) {
+            String json = SerialBT.readString();
+
+            char buff[1024];
+            json.toCharArray(buff, 1024);
+
+            DynamicJsonDocument doc(1024);
+            deserializeJson(doc, buff);
+
+            const char* type = doc["type"];
+
+            if(type == "SETUP") {
+                autonomously = !autonomously;
+            } 
+
+            if(autonomously) {
+
+            } else {
+                if(type == "COMMAND") {
+                    const char* payload = doc["payload"];
+                    if(payload == "FORWARD") {
+                        control.moveForward();
+                    } else if (payload == "BACKWARD") {
+
+                    } else if (payload == "ROTATE") {
+
+                    } else if (payload == "STOP") {
+
+                    }
+                }
+            }
+        }
     }
 }

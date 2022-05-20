@@ -38,6 +38,7 @@ dependencies:
   flutter_bluetooth_serial:
   flutter_secure_storage:
   cupertino_icons: ^1.0.2
+  freezed_annotation: ^2.0.3
 
 dev_dependencies:
   flutter_test:
