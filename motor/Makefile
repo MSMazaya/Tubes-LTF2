@@ -16,3 +16,6 @@ uploadfs:
 
 update:
 	platformio project init
+
+monitor:
+	platformio device monitor --baud 9600
