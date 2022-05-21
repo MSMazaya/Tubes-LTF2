@@ -37,6 +37,7 @@ dependencies:
   stacked_generator:
   flutter_bluetooth_serial:
   flutter_secure_storage:
+  fl_chart: ^0.50.6
   cupertino_icons: ^1.0.2
   freezed_annotation: ^2.0.3
 

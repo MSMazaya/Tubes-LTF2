@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mobile/utils/shapes.dart';
 import 'package:mobile/views/main/control/control_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -144,14 +146,59 @@ class ControlView extends StatelessWidget {
                     ],
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      model.test();
-                    },
-                    child: Text("TEST")),
               ],
             ),
-          )
+          ),
+          Container(
+            padding: EdgeInsets.all(30),
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    HapticFeedback.vibrate();
+                    model.commandForward();
+                  },
+                  child: MyTriangle(
+                    size: 70,
+                    color: Colors.blue,
+                  ),
+                ),
+                SizedBox(height: 15),
+                ElevatedButton(
+                  onPressed: () {
+                    HapticFeedback.vibrate();
+                    if (model.onAction) {
+                      model.commandStop();
+                    } else {
+                      model.commandRotate();
+                    }
+                  },
+                  child: Icon(
+                      model.onAction ? Icons.stop : Icons.rotate_90_degrees_ccw,
+                      color: Colors.white),
+                  style: ElevatedButton.styleFrom(
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(20),
+                    primary: Colors.blue, // <-- Button color
+                    onPrimary: Colors.red, // <-- Splash color
+                  ),
+                ),
+                SizedBox(height: 15),
+                GestureDetector(
+                  onTap: () {
+                    HapticFeedback.vibrate();
+                    model.commandBackward();
+                  },
+                  child: RotatedBox(
+                    quarterTurns: 2,
+                    child: MyTriangle(size: 70, color: Colors.blue),
+                  ),
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );

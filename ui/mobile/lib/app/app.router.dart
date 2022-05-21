@@ -92,8 +92,11 @@ class StackedRouter extends RouterBase {
       );
     },
     ActivityView: (data) {
+      var args = data.getArgs<ActivityViewArguments>(
+        orElse: () => ActivityViewArguments(),
+      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const ActivityView(),
+        builder: (context) => ActivityView(key: args.key),
         settings: data,
       );
     },
@@ -129,6 +132,12 @@ class BluetoothConfigViewArguments {
 class WifiConfigViewArguments {
   final Key? key;
   WifiConfigViewArguments({this.key});
+}
+
+/// ActivityView arguments holder class
+class ActivityViewArguments {
+  final Key? key;
+  ActivityViewArguments({this.key});
 }
 
 /// SettingsView arguments holder class

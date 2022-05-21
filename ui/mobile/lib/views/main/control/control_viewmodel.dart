@@ -25,11 +25,12 @@ class ControlViewModel extends BaseViewModel {
           title: "Alert", description: "No device bonded");
       return;
     }
-
-    BluetoothConnection.toAddress(address).then((_connection) {
-      connection = _connection;
-      notifyListeners();
-    });
+    if (connection == null) {
+      BluetoothConnection.toAddress(address).then((_connection) {
+        connection = _connection;
+        notifyListeners();
+      });
+    }
   }
 
   void test() {
@@ -48,6 +49,29 @@ class ControlViewModel extends BaseViewModel {
 
   void getUsername() async {
     username = await _storageService.getValue(key: "username") ?? username;
+    notifyListeners();
+  }
+
+  bool _onAction = false;
+  bool get onAction => _onAction;
+
+  void commandForward() {
+    _onAction = true;
+    notifyListeners();
+  }
+
+  void commandBackward() {
+    _onAction = true;
+    notifyListeners();
+  }
+
+  void commandRotate() {
+    _onAction = true;
+    notifyListeners();
+  }
+
+  void commandStop() {
+    _onAction = false;
     notifyListeners();
   }
 }
