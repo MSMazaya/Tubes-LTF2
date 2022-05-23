@@ -33,11 +33,6 @@ class ControlViewModel extends BaseViewModel {
     }
   }
 
-  void test() {
-    const tes = EspCommand(type: "COMMAND", payload: "MOVERIGHT");
-    _sendMessage(json.encode(tes.toJson()));
-  }
-
   void _sendMessage(String text) async {
     try {
       connection!.output.add(Uint8List.fromList(utf8.encode(text + "\r\n")));
@@ -57,21 +52,29 @@ class ControlViewModel extends BaseViewModel {
 
   void commandForward() {
     _onAction = true;
+    const command = EspCommand(type: "COMMAND", payload: "FORWARD");
+    _sendMessage(json.encode(command.toJson()));
     notifyListeners();
   }
 
   void commandBackward() {
     _onAction = true;
+    const command = EspCommand(type: "COMMAND", payload: "BACKWARD");
+    _sendMessage(json.encode(command.toJson()));
     notifyListeners();
   }
 
   void commandRotate() {
     _onAction = true;
+    const command = EspCommand(type: "COMMAND", payload: "ROTATE");
+    _sendMessage(json.encode(command.toJson()));
     notifyListeners();
   }
 
   void commandStop() {
     _onAction = false;
+    const command = EspCommand(type: "COMMAND", payload: "STOP");
+    _sendMessage(json.encode(command.toJson()));
     notifyListeners();
   }
 }

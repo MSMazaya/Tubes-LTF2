@@ -1,6 +1,6 @@
 #include "Control.hpp"
 
-void Control::init(Motor frontRight, Motor frontLeft, Motor backRight, Motor backLeft) {
+Control::Control(Motor* frontRight, Motor* frontLeft, Motor* backRight, Motor* backLeft) {
     frontRightMotor = frontRight;
     frontLeftMotor = frontLeft;
     backRightMotor = backRight;
@@ -8,30 +8,37 @@ void Control::init(Motor frontRight, Motor frontLeft, Motor backRight, Motor bac
 }
 
 void Control::rotateCW(float degree) {
-    frontRightMotor.runBackward();
-    frontLeftMotor.runForward();
-    backLeftMotor.runBackward();
-    backRightMotor.runForward();
+    frontRightMotor->runBackward();
+    frontLeftMotor->runForward();
+    backLeftMotor->runBackward();
+    backRightMotor->runForward();
 }
 
 void Control::moveForward() {
-    backLeftMotor.runForward();
-    backRightMotor.runForward();
-    frontLeftMotor.runForward();
-    frontRightMotor.runForward();
+    backLeftMotor->runForward();
+    backRightMotor->runForward();
+    frontLeftMotor->runForward();
+    frontRightMotor->runForward();
+}
+
+void Control::moveBackward() {
+    backLeftMotor->runBackward();
+    backRightMotor->runBackward();
+    frontLeftMotor->runBackward();
+    frontRightMotor->runBackward();
 }
 
 void Control::moveForwardWithSpeedScale(int scale) {
     int pwm = scale*255;
-    backLeftMotor.runWithPWM(pwm);
-    backRightMotor.runWithPWM(pwm);
-    frontLeftMotor.runWithPWM(pwm);
-    frontRightMotor.runWithPWM(pwm);
+    backLeftMotor->runWithPWM(pwm);
+    backRightMotor->runWithPWM(pwm);
+    frontLeftMotor->runWithPWM(pwm);
+    frontRightMotor->runWithPWM(pwm);
 }
 
 void Control::stop() {
-    backLeftMotor.stop();
-    backRightMotor.stop();
-    frontLeftMotor.stop();
-    frontRightMotor.stop();
+    backLeftMotor->stop();
+    backRightMotor->stop();
+    frontLeftMotor->stop();
+    frontRightMotor->stop();
 }

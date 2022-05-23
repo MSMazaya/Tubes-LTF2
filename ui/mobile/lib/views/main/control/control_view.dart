@@ -97,7 +97,7 @@ class ControlView extends StatelessWidget {
                   child: Column(
                     children: [
                       const Text(
-                        "Front Sensor",
+                        "Back Sensor",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -115,7 +115,7 @@ class ControlView extends StatelessWidget {
                   child: Column(
                     children: [
                       const Text(
-                        "Front Sensor",
+                        "Left Sensor",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -133,7 +133,7 @@ class ControlView extends StatelessWidget {
                   child: Column(
                     children: [
                       const Text(
-                        "Front Sensor",
+                        "Right Sensor",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
