@@ -14,5 +14,6 @@ void setup() {
 
 void loop() {
     process::main();
+    communication::non_autonomous_loop();
     delay(200);
 }

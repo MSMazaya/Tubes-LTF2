@@ -6,6 +6,7 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:mobile/app/app.locator.dart';
 import 'package:mobile/services/storage.dart';
 import 'package:mobile/types/esp_command/esp_command.dart';
+import 'package:mobile/types/wifi_creds_payload/wifi_creds_payload.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -52,29 +53,30 @@ class ControlViewModel extends BaseViewModel {
 
   void commandForward() {
     _onAction = true;
-    const command = EspCommand(type: "COMMAND", payload: "FORWARD");
+    const payload = WifiCredsPayload(ssid: "Jay", password: "Patriot*100");
+    const command = EspCommand(type: "COMMAND", payload: payload);
     _sendMessage(json.encode(command.toJson()));
     notifyListeners();
   }
 
   void commandBackward() {
     _onAction = true;
-    const command = EspCommand(type: "COMMAND", payload: "BACKWARD");
-    _sendMessage(json.encode(command.toJson()));
+    // const command = EspCommand(type: "COMMAND", payload: "BACKWARD");
+    // _sendMessage(json.encode(command.toJson()));
     notifyListeners();
   }
 
   void commandRotate() {
     _onAction = true;
-    const command = EspCommand(type: "COMMAND", payload: "ROTATE");
-    _sendMessage(json.encode(command.toJson()));
+    // const command = EspCommand(type: "COMMAND", payload: "ROTATE");
+    // _sendMessage(json.encode(command.toJson()));
     notifyListeners();
   }
 
   void commandStop() {
     _onAction = false;
-    const command = EspCommand(type: "COMMAND", payload: "STOP");
-    _sendMessage(json.encode(command.toJson()));
+    // const command = EspCommand(type: "COMMAND", payload: "STOP");
+    // _sendMessage(json.encode(command.toJson()));
     notifyListeners();
   }
 }

@@ -7,11 +7,18 @@ Control::Control(Motor* frontRight, Motor* frontLeft, Motor* backRight, Motor* b
     backLeftMotor = backLeft;
 }
 
-void Control::rotateCW(float degree) {
+void Control::rotateCW() {
     frontRightMotor->runBackward();
     frontLeftMotor->runForward();
     backLeftMotor->runBackward();
     backRightMotor->runForward();
+}
+
+void Control::rotateCCW() {
+    frontRightMotor->runForward();
+    frontLeftMotor->runBackward();
+    backLeftMotor->runForward();
+    backRightMotor->runBackward();
 }
 
 void Control::moveForward() {

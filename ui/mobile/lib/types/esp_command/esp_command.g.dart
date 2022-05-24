@@ -9,7 +9,8 @@ part of 'esp_command.dart';
 _$_EspCommand _$$_EspCommandFromJson(Map<String, dynamic> json) =>
     _$_EspCommand(
       type: json['type'] as String,
-      payload: json['payload'] as String,
+      payload:
+          WifiCredsPayload.fromJson(json['payload'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_EspCommandToJson(_$_EspCommand instance) =>

@@ -5,9 +5,13 @@
 #include <Filter.hpp>
 #include <ConcreteFilter.hpp>
 #include "communication.hpp"
+#include <EEPROM.h>
+#include <ArduinoJson.h>
+#include <MQTT.h>
 
-namespace process {
-    void setup();
+namespace process
+{
+    void autonomous_setup(bool, char[], char[]);
     void main();
     void ldrReadData();
     Vector2D calculateIntent();

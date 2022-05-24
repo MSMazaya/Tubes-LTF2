@@ -21,7 +21,7 @@ EspCommand _$EspCommandFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$EspCommand {
   String get type => throw _privateConstructorUsedError;
-  String get payload => throw _privateConstructorUsedError;
+  WifiCredsPayload get payload => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,9 @@ abstract class $EspCommandCopyWith<$Res> {
   factory $EspCommandCopyWith(
           EspCommand value, $Res Function(EspCommand) then) =
       _$EspCommandCopyWithImpl<$Res>;
-  $Res call({String type, String payload});
+  $Res call({String type, WifiCredsPayload payload});
+
+  $WifiCredsPayloadCopyWith<$Res> get payload;
 }
 
 /// @nodoc
@@ -58,8 +60,15 @@ class _$EspCommandCopyWithImpl<$Res> implements $EspCommandCopyWith<$Res> {
       payload: payload == freezed
           ? _value.payload
           : payload // ignore: cast_nullable_to_non_nullable
-              as String,
+              as WifiCredsPayload,
     ));
+  }
+
+  @override
+  $WifiCredsPayloadCopyWith<$Res> get payload {
+    return $WifiCredsPayloadCopyWith<$Res>(_value.payload, (value) {
+      return _then(_value.copyWith(payload: value));
+    });
   }
 }
 
@@ -70,7 +79,10 @@ abstract class _$$_EspCommandCopyWith<$Res>
           _$_EspCommand value, $Res Function(_$_EspCommand) then) =
       __$$_EspCommandCopyWithImpl<$Res>;
   @override
-  $Res call({String type, String payload});
+  $Res call({String type, WifiCredsPayload payload});
+
+  @override
+  $WifiCredsPayloadCopyWith<$Res> get payload;
 }
 
 /// @nodoc
@@ -96,7 +108,7 @@ class __$$_EspCommandCopyWithImpl<$Res> extends _$EspCommandCopyWithImpl<$Res>
       payload: payload == freezed
           ? _value.payload
           : payload // ignore: cast_nullable_to_non_nullable
-              as String,
+              as WifiCredsPayload,
     ));
   }
 }
@@ -112,7 +124,7 @@ class _$_EspCommand with DiagnosticableTreeMixin implements _EspCommand {
   @override
   final String type;
   @override
-  final String payload;
+  final WifiCredsPayload payload;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -158,7 +170,7 @@ class _$_EspCommand with DiagnosticableTreeMixin implements _EspCommand {
 abstract class _EspCommand implements EspCommand {
   const factory _EspCommand(
       {required final String type,
-      required final String payload}) = _$_EspCommand;
+      required final WifiCredsPayload payload}) = _$_EspCommand;
 
   factory _EspCommand.fromJson(Map<String, dynamic> json) =
       _$_EspCommand.fromJson;
@@ -166,7 +178,7 @@ abstract class _EspCommand implements EspCommand {
   @override
   String get type => throw _privateConstructorUsedError;
   @override
-  String get payload => throw _privateConstructorUsedError;
+  WifiCredsPayload get payload => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_EspCommandCopyWith<_$_EspCommand> get copyWith =>

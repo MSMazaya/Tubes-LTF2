@@ -1,36 +1,39 @@
 #include "process.hpp"
 
-namespace process {
+namespace process
+{
     MovingAverage<int> ldrFilter(10);
 
-    SensorLDR ldrRight(
-        &ldrFilter,
-        32
-    );
-
-    SensorLDR ldrLeft(
-        &ldrFilter,
-        35
-    );
-
+    // front
     SensorLDR ldrFront(
         &ldrFilter,
-        34
-    );
+        32);
 
+    // right
+    SensorLDR ldrRight(
+        &ldrFilter,
+        35);
+
+    // back
     SensorLDR ldrBack(
         &ldrFilter,
-        39
-    );
+        34);
 
-    void ldrReadData() {
+    // left
+    SensorLDR ldrLeft(
+        &ldrFilter,
+        39);
+
+    void ldrReadData()
+    {
         ldrRight.read();
         ldrFront.read();
         ldrBack.read();
         ldrLeft.read();
     }
 
-    Vector2D calculateIntent() {
+    Vector2D calculateIntent()
+    {
         Vector2D i = factory_vector::create_i();
         Vector2D j = factory_vector::create_j();
 
@@ -41,12 +44,17 @@ namespace process {
         float front = ldrFront.getData();
         float back = ldrBack.getData();
 
-        return (i*right - i*left + j*front - j*back)/max_input; 
+        return (i * right - i * left + j * front - j * back) / max_input;
     }
 
-    void main() {
+    void main()
+    {
         ldrReadData();
         Vector2D intent = calculateIntent();
+        Serial.print("x ");
+        Serial.println(intent.x);
+        Serial.print("y ");
+        Serial.println(intent.y);
         communication::sendMessage(intent);
     }
 }
