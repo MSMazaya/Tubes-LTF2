@@ -5,8 +5,13 @@
 #include <WiFi.h>
 #include <esp_now.h>
 #include <Vector2D.hpp>
-#include <EEPROM.h>
+#include "spiffs_helper.hpp"
 #include "comm_thread.hpp"
+
+const char* ssidPath = "/ssid.txt";
+const char* passPath = "/pass.txt";
+const char* autoPath = "/auto.txt";
+
 
 #define MA_EN2 13
 #define MA_EN1 33
@@ -24,8 +29,9 @@
 #define MB_IN3 17
 #define MB_IN4 4
 
-const char *ssid;
-const char *pass;
+String ssid;
+String pass;
+String autonomous;
 
 Motor frontLeft(
     MB_EN1,
@@ -56,8 +62,6 @@ Control control(
     &frontLeft,
     &backRight,
     &backLeft);
-
-bool autonomous = true;
 
 Vector2D data;
 esp_now_peer_info_t peerInfo;
@@ -106,9 +110,12 @@ void OnDataRecv(const uint8_t *mac, const uint8_t *incomingData, int len)
         Serial.println(ssid);
         Serial.println(password);
 
-        EEPROM.put(100, ssid);
-        EEPROM.put(200, password);
-        EEPROM.put(300, false);
+        /* EEPROM.put(100, ssid); */
+        /* EEPROM.put(200, password); */
+        /* EEPROM.put(300, false); */
+        writeFile(SPIFFS, ssidPath, "SSID");
+        writeFile(SPIFFS, passPath, "PASS");
+        writeFile(SPIFFS, passPath, "PASS");
 
         ESP.restart();
     }
@@ -130,75 +137,67 @@ void setup()
 {
     Serial.begin(9600);
 
-    EEPROM.begin(512); // Initialasing EEPROM
+    initSPIFFS();
 
+    ssid = readFile(SPIFFS, ssidPath);
+    pass = readFile(SPIFFS, passPath);
+    autonomous = readFile(SPIFFS, autoPath);
+
+    Serial.println(ssid);
+    Serial.println(pass);
+    
     WiFi.mode(WIFI_AP_STA);
-
+    
     if (esp_now_init() != ESP_OK)
     {
         Serial.println("Error initializing ESP-NOW");
         return;
     }
-    delay(1000);
-
+    
     esp_now_register_recv_cb(OnDataRecv);
     esp_now_register_send_cb(OnDataSent);
-
+    
     memcpy(peerInfo.peer_addr, broadcastAddress, 6);
     peerInfo.channel = 0;
     peerInfo.encrypt = false;
-
+    
     if (esp_now_add_peer(&peerInfo) != ESP_OK)
     {
         Serial.println("Failed to add peer");
         return;
     }
 
-    const char* ssid = "Jay";
-    const char* pass = "mazaya30";
-
-    /* EEPROM.get(100, ssid); */
-    /* EEPROM.get(200, pass); */
-    /* EEPROM.get(300, autonomous); */
-
-    Serial.println("GET EEPROM:");
-    Serial.print("SSID ");
-    Serial.println(ssid);
-    Serial.print("PASS "); 
-    Serial.println(pass); 
-    delay(3000);
-
-    /* comm_thread::setup(autonomous, ssid, pass); */
+    comm_thread::setup(autonomous == "AUTO", ssid, pass);
 }
 
 void loop()
 {
-    if (autonomous)
-    {
-        if(data.y == 0 && data.x == 0) 
-        {
-            control.stop();
-        }
-        else if (data.y < 0)
-        {
-            Serial.println("ROTATE TO BACK");
-            control.rotateCW();
-        } 
-        else if (data.x > data.y) 
-        {
-            Serial.println("ROTATE TO RIGHT");
-            control.rotateCW(); 
-        }
-        else if (abs(data.x) > data.y)
-        {
-            Serial.println("ROTATE TO LEFT");
-            control.rotateCCW();
-        } 
-        else
-        {
-            Serial.print("MOVE FORWARD, scale: ");
-            Serial.println(1-data.y);
-            control.moveForwardWithSpeedScale(1 - data.y);
-        }
-    }
+    /* if (autonomous) */
+    /* { */
+    /*     if(data.y == 0 && data.x == 0)  */
+    /*     { */
+    /*         control.stop(); */
+    /*     } */
+    /*     else if (data.y < 0) */
+    /*     { */
+    /*         Serial.println("ROTATE TO BACK"); */
+    /*         control.rotateCW(); */
+    /*     }  */
+    /*     else if (data.x > data.y)  */
+    /*     { */
+    /*         Serial.println("ROTATE TO RIGHT"); */
+    /*         control.rotateCW();  */
+    /*     } */
+    /*     else if (abs(data.x) > data.y) */
+    /*     { */
+    /*         Serial.println("ROTATE TO LEFT"); */
+    /*         control.rotateCCW(); */
+    /*     }  */
+    /*     else */
+    /*     { */
+    /*         Serial.print("MOVE FORWARD, scale: "); */
+    /*         Serial.println(1-data.y); */
+    /*         control.moveForwardWithSpeedScale(1 - data.y); */
+    /*     } */
+    /* } */
 }

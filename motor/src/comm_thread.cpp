@@ -78,13 +78,13 @@ namespace comm_thread
     /* } */
   }
 
-  void setup(bool autonomous, const char* ssid, const char* pass)
+  void setup(bool autonomous, String ssid, String pass)
   {
     if (!autonomous)
     {
       Serial.println("NON AUTO");
       EEPROM.put(300, true);
-      WiFi.begin(ssid, pass);
+      WiFi.begin(ssid.c_str(), pass.c_str());
       client.begin("iot.tf.itb.ac.id", net);
       client.onMessage(messageReceived);
 
