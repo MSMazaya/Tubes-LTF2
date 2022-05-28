@@ -31,5 +31,5 @@ func main() {
 	r.GET("/robot", robot.GetAllRobots);
     r.POST("/hmi-data", hmiData.CreateData);
     r.GET("/hmi-data/:username", hmiData.GetByUsername);
-    r.Run(":3000") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+    r.Run(":8888") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
